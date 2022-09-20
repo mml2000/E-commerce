@@ -1,5 +1,6 @@
-let id = localStorage.getItem('catID');
-const API_PRODUCTO = `https://japceibal.github.io/emercado-api/cats_products/${id}.json`;
+let id = localStorage.getItem('productID');
+const API_PRODUCTO = `https://japceibal.github.io/emercado-api/products/${id}.json`;
+const API_COMENTARIOS = `https://japceibal.github.io/emercado-api/products_comments/${id}.json`
 const contenedorDescripcion = document.querySelector('.descripcion');
 const productId = localStorage.getItem('productID');
 const contenedorComentarios = document.querySelector('#comentariosFalsos');
@@ -7,29 +8,26 @@ const formComentarios = document.querySelector('#formComentarios');
 
 
 const html = (objeto) => {
-    let categoria = objeto.data.catName;
 
-    
-    objeto.data.products.forEach(element => {
-        if ( element.id === parseInt(productId)){
-            contenedorDescripcion.innerHTML = `<h1 class='tituloProductoInfo'>${element.name}</h1>
+    let producto = objeto.data;
+            contenedorDescripcion.innerHTML = `<h1 class='tituloProductoInfo'>${producto.name}</h1>
             <p id='elementoDescripcion'>Precio:</p>
-            <span id='apiDescripcion'>${element.currency} ${element.cost}</span>
+            <span id='apiDescripcion'>${producto.currency} ${producto.cost}</span>
             <p id='elementoDescripcion'>Decripcion:<p>
-            <span id='apiDescripcion'>${element.description}</span>
+            <span id='apiDescripcion'>${producto.description}</span>
             <p id='elementoDescripcion'>Categoria:</p>
-            <span id='apiDescripcion'>${categoria}</span>
+            <span id='apiDescripcion'>${producto.category}</span>
             <p id='elementoDescripcion'>Cantidad de vendidos:</p>
-            <span id='apiDescripcion'>${element.soldCount}</span>
-            <p id='elementoDescripcion'>Imagenes ilustrativas:</p>
-            <img id='imagenProductInfo' src=${element.image}></img>`
-        }
+            <span id='apiDescripcion'>${producto.soldCount}</span>
+            <p id='elementoDescripcion'>Imagenes ilustrativas:</p>`
+    producto.images.forEach(element => {
+        contenedorDescripcion.innerHTML +=`<img id='imagenProductInfo' src=${element}></img>`;
     });
 }
 
 
 
-const comentarios = (texto,puntos,nombre) =>{
+const comentarios = (texto,puntos,nombre,momento) =>{
 
     let estrellas = '';
     
@@ -45,10 +43,13 @@ const comentarios = (texto,puntos,nombre) =>{
         };
     };
 
-    const tiempo = new Date();
-
+    if(momento === null){
+        let tiempo = new Date();
+        momento = tiempo.getFullYear()+'-'+tiempo.getMonth()+'-'+tiempo.getDate()+' '+tiempo.getHours()+':'+tiempo.getMinutes()+':'+tiempo.getSeconds() 
+    };
+    
     contenedorComentarios.innerHTML += `<div class='comentarioEspecifico'>
-    <span><b>${nombre}</b>  ${tiempo.getFullYear()}-${tiempo.getMonth()}-${tiempo.getDate()} ${tiempo.getHours()}:${tiempo.getMinutes()}:${tiempo.getSeconds()} </span> 
+    <span><b>${nombre}</b>   ${momento}</span> 
     ${estrellas}
     <p>${texto}</p>
     </div>`
@@ -59,10 +60,10 @@ const comentarios = (texto,puntos,nombre) =>{
 document.addEventListener('DOMContentLoaded', e => {
 
 
-    const getJSONData = async (API_PRODUCTO) => {
+    const getJSONData = async (api) => {
         const result = {};
         try {
-            const response = await fetch(API_PRODUCTO);
+            const response = await fetch(api);
             if (response.ok) {
                 result.data = await response.json();
                 result.status = "ok";
@@ -90,9 +91,18 @@ document.addEventListener('DOMContentLoaded', e => {
         let comentario = document.querySelector('#coment').value;
         let valorPuntuacion = document.querySelector('#puntuacion').value;
         let usuarioNombre = localStorage.getItem('email');
-        comentarios(comentario,valorPuntuacion,usuarioNombre);
-        formComentarios.reset()
-    })
+        comentarios(comentario,valorPuntuacion,usuarioNombre, null);
+        formComentarios.reset();
+    });
 
+
+    const mostrarComentariosAnteriores = async () =>{
+        let objeto = await getJSONData(API_COMENTARIOS);
+        await objeto.data.forEach(element =>{
+            comentarios(element.description,element.score,element.user,element.dateTime);
+        })
+    }
+
+    mostrarComentariosAnteriores();
 
 })
