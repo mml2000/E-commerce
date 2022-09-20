@@ -13,15 +13,15 @@ const html = (objeto) => {
     objeto.data.products.forEach(element => {
         if ( element.id === parseInt(productId)){
             contenedorDescripcion.innerHTML = `<h1 class='tituloProductoInfo'>${element.name}</h1>
-            <p id='serONoSer'>Precio:</p>
-            <span id='laCuestion'>${element.currency} ${element.cost}</span>
-            <p id='serONoSer'>Decripcion:<p>
-            <span id='laCuestion'>${element.description}</span>
-            <p id='serONoSer'>Categoria:</p>
-            <span id='laCuestion'>${categoria}</span>
-            <p id='serONoSer'>Cantidad de vendidos:</p>
-            <span id='laCuestion'>${element.soldCount}</span>
-            <p id='serONoSer'>Imagenes ilustrativas:</p>
+            <p id='elementoDescripcion'>Precio:</p>
+            <span id='apiDescripcion'>${element.currency} ${element.cost}</span>
+            <p id='elementoDescripcion'>Decripcion:<p>
+            <span id='apiDescripcion'>${element.description}</span>
+            <p id='elementoDescripcion'>Categoria:</p>
+            <span id='apiDescripcion'>${categoria}</span>
+            <p id='elementoDescripcion'>Cantidad de vendidos:</p>
+            <span id='apiDescripcion'>${element.soldCount}</span>
+            <p id='elementoDescripcion'>Imagenes ilustrativas:</p>
             <img id='imagenProductInfo' src=${element.image}></img>`
         }
     });
