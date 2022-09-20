@@ -1,0 +1,38 @@
+
+body{
+    background-color: #f8f9fa;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+}
+
+.logoEmercado{
+    position: absolute;
+    width: 400px;
+}
+
+#login{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 25vh;
+}
+
+#ingresar{
+    border-radius: 28px;
+    background-color: #209dba;
+    padding: 5px 15px;
+    margin-top: 20px;
+    border: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.labelLogin{
+    margin: 10px;
+    font-weight: bold;
+}
+
