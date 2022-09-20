@@ -6,6 +6,14 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
+
+const usuarioEmail = localStorage.getItem("email");
+const liUsuario = document.querySelector("#usuarioEmail");
+liUsuario.innerHTML = usuarioEmail;
+
+
+
+
 function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)

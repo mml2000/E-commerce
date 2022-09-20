@@ -8,6 +8,10 @@ let minCount = undefined;
 let maxCount = undefined;
 
 
+const usuarioEmail = localStorage.getItem("email");
+const liUsuario = document.querySelector("#usuarioEmail");
+liUsuario.innerHTML = usuarioEmail;
+
 
 
 async function sortProductos  (criteria, array){

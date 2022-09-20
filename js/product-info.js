@@ -5,6 +5,11 @@ const contenedorDescripcion = document.querySelector('.descripcion');
 const productId = localStorage.getItem('productID');
 const contenedorComentarios = document.querySelector('#comentariosFalsos');
 const formComentarios = document.querySelector('#formComentarios');
+const usuarioEmail = localStorage.getItem("email");
+
+
+const liUsuario = document.querySelector("#usuarioEmail");
+liUsuario.innerHTML = usuarioEmail;
 
 
 const html = (objeto) => {
@@ -90,8 +95,7 @@ document.addEventListener('DOMContentLoaded', e => {
         event.preventDefault();
         let comentario = document.querySelector('#coment').value;
         let valorPuntuacion = document.querySelector('#puntuacion').value;
-        let usuarioNombre = localStorage.getItem('email');
-        comentarios(comentario,valorPuntuacion,usuarioNombre, null);
+        comentarios(comentario,valorPuntuacion,usuarioEmail, null);
         formComentarios.reset();
     });
 
