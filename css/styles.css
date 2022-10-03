@@ -244,3 +244,45 @@ textarea, #puntuacion, #botonComentarios{
   outline: auto;
   background-color: #f1f1f1;
 }
+
+#productosSimilares{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.productosRelacionados{
+  width: 250px;
+  padding: 10px;
+}
+
+.productosRelacionados p{
+  margin-left: 70px;
+}
+
+.menu{
+  position: absolute;
+  background-color: #212529;
+  color: #939597;
+  list-style: none;
+  right: 50px;
+  top: 47px;
+  padding: 5px;
+}
+
+.menu li{
+  padding: 5px;
+  font-size: 17px;
+}
+
+.menu li:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
+
+#usuarioEmail {
+  cursor: pointer;
+}

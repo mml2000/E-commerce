@@ -12,6 +12,14 @@ const usuarioEmail = localStorage.getItem("email");
 const liUsuario = document.querySelector("#usuarioEmail");
 liUsuario.innerHTML = usuarioEmail;
 
+liUsuario.addEventListener('click', () =>{
+    document.querySelector('.menu').classList.toggle('hidden');
+})
+
+document.querySelector('.cerrarSesion').addEventListener('click', () =>{
+    localStorage.clear();
+    location.replace('/')
+})
 
 
 async function sortProductos  (criteria, array){

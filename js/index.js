@@ -4,6 +4,14 @@ document.addEventListener("DOMContentLoaded", function(){
     const usuarioEmail = localStorage.getItem("email");
     liUsuario.innerHTML = usuarioEmail; 
     
+    liUsuario.addEventListener('click', () =>{
+        document.querySelector('.menu').classList.toggle('hidden');
+    })
+
+    document.querySelector('.cerrarSesion').addEventListener('click', () =>{
+        localStorage.clear();
+        location.replace('/')
+    })
 
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", usuarioEmail);

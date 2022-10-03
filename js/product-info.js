@@ -11,6 +11,14 @@ const usuarioEmail = localStorage.getItem("email");
 const liUsuario = document.querySelector("#usuarioEmail");
 liUsuario.innerHTML = usuarioEmail;
 
+liUsuario.addEventListener('click', () =>{
+    document.querySelector('.menu').classList.toggle('hidden');
+})
+
+document.querySelector('.cerrarSesion').addEventListener('click', () =>{
+    localStorage.clear();
+    location.replace('/')
+})
 
 const html = (objeto) => {
 
@@ -28,6 +36,20 @@ const html = (objeto) => {
     producto.images.forEach(element => {
         contenedorDescripcion.innerHTML +=`<img id='imagenProductInfo' src=${element}></img>`;
     });
+}
+
+
+const productosRelacionados = (objeto) => {
+    let productoRelacionado = objeto.data;
+
+    productoRelacionado.relatedProducts.forEach(element => {
+        document.querySelector('#productosSimilares').innerHTML += 
+        `<div class='productosRelacionados'>
+        <img id='imagenProductInfo' src=${element.image}></img>
+        <p>${element.name}</p>
+        </div>`
+        
+    })
 }
 
 
@@ -85,7 +107,12 @@ document.addEventListener('DOMContentLoaded', e => {
 
 
     const productoCorecto = async () => {
-        html(await getJSONData(API_PRODUCTO));
+        await getJSONData(API_PRODUCTO)
+        .then(productos => {
+            html(productos);
+            productosRelacionados(productos);
+        }
+        )
     };
 
     productoCorecto();
@@ -108,5 +135,8 @@ document.addEventListener('DOMContentLoaded', e => {
     }
 
     mostrarComentariosAnteriores();
+
+
+
 
 })
